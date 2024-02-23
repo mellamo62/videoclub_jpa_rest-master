@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormControl, FormGroup, FormsModule, Validators} from "@angular/forms";
 import {CategoriaService} from "../categoria.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Categoria} from "../categoria";
@@ -14,7 +14,9 @@ export class EditComponent implements OnInit {
   id: number = 0;
   categoria: Categoria = { id: 0, nombre: "VOID", ultimaActualizacion: "1970-01-01"};
   form: FormGroup =   new FormGroup({
-    categoria:  new FormControl('', [ Validators.required, Validators.pattern('^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ \-\']+') ])
+    categoria:  new FormControl('', [ Validators.required, Validators.pattern('^[a-zA-ZÁáÀàÉéÈèÍíÌìÓóÒòÚúÙùÑñüÜ \-\']+') ]),
+    nombre: new FormControl('',Validators.required),
+    ultimaActualizacion: new FormControl('',Validators.required)
   });
 
   constructor(
@@ -29,8 +31,6 @@ export class EditComponent implements OnInit {
       this.categoria = data;
 
       this.form.get('nombre')?.setValue(this.categoria.nombre);
-
-
     });
   }
 
